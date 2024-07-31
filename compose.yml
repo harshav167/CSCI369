@@ -1,0 +1,30 @@
+
+services:
+  kali:
+    image: cr.cynapse.ai/devops/kali:latest
+    container_name: kali_vm
+    stdin_open: true
+    tty: true
+    networks:
+      - localnet
+
+  ubuntu:
+    image: ubuntu:22.04
+    container_name: ubuntu_vm
+    stdin_open: true
+    tty: true
+    networks:
+      - localnet
+
+  metasploitable:
+    image: tleemcjr/metasploitable2:latest
+    container_name: metasploitable_vm
+    stdin_open: true
+    tty: true
+    command: sh -c "/bin/services.sh && bash"
+    networks:
+      - localnet
+
+networks:
+  localnet:
+    driver: bridge
