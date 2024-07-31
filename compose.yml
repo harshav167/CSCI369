@@ -1,7 +1,7 @@
 
 services:
   kali:
-    image: cr.cynapse.ai/devops/kali:latest
+    image: ghcr.io/harshav167/tupperwares/kali:latest
     container_name: kali_vm
     stdin_open: true
     tty: true
@@ -22,6 +22,25 @@ services:
     stdin_open: true
     tty: true
     command: sh -c "/bin/services.sh && bash"
+    networks:
+      - localnet
+
+  windows:
+    image: dockurr/windows
+    container_name: windows
+    environment:
+      VERSION: "win11"
+    devices:
+      - /dev/kvm
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8006:8006
+      - 3389:3389/tcp
+      - 3389:3389/udp
+    stop_grace_period: 2m
+    stdin_open: true
+    tty: true
     networks:
       - localnet
 
