@@ -1,5 +1,28 @@
 
 services:
+  ##this image comes with a vnc server and you can access the ui using the ports in the browser
+  kali-linux:
+    image: lscr.io/linuxserver/kali-linux:latest
+    container_name: kali-linux
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - SUBFOLDER=/ #optional
+      - "TITLE=Kali Linux" #optional
+    volumes:
+      - ./config:/config
+    ports:
+      - 3000:3000
+      - 3001:3001
+    stdin_open: true
+    tty: true
+    networks:
+      - localnet
+    # restart: unless-stopped
+  ##this is a custom build image with no gui but comes with all the tools preinstalled and its faster
   kali:
     image: ghcr.io/harshav167/tupperwares/kali:latest
     container_name: kali_vm
